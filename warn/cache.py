@@ -55,7 +55,7 @@ class Cache:
         """
         path = Path(self.path, name)
         logger.debug(f"Reading from cache {path}")
-        with open(path, newline="") as infile:
+        with open(path, newline="", encoding="utf-8") as infile:
             return infile.read()
 
     def read_csv(self, name):
@@ -69,7 +69,7 @@ class Cache:
         """
         path = Path(self.path, name)
         logger.debug(f"Reading CSV from cache {path}")
-        with open(path) as fh:
+        with open(path, encoding="utf-8") as fh:
             return list(csv.reader(fh))
 
     def download(
@@ -121,7 +121,7 @@ class Cache:
         Provide file contents and the partial name for (relative to cache directory)
         where file should written. The partial file path can include additional
         directories (e.g. 'fl/2021_page_1.html'), which will be created if they
-        don't exist.
+        don't exist.    
 
         Example: ::
 
@@ -134,7 +134,7 @@ class Cache:
         out = Path(self.path, name)
         out.parent.mkdir(parents=True, exist_ok=True)
         logger.debug(f"Writing to cache {out}")
-        with open(out, "w", newline="") as fh:
+        with open(out, "w", newline="", encoding="utf-8") as fh:
             fh.write(content)
         return str(out)
 
